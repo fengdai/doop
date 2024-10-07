@@ -538,21 +538,21 @@ abstract class DoopAnalysis extends Analysis implements Runnable {
                         invokeFactGenerator('SOOT_FACT_GEN', Resource.SOOT_FACT_GENERATOR, jvmArgs, params, SOOT_MAIN)
                     }
                     // Check if fact generation must be restarted due to missing classes.
-                    if (missingClasses != null && missingClasses.exists()) {
-                        String[] extraClasses = missingClasses.readLines() as String[]
-                        if (extraClasses.length > 0) {
-                            // Retry with classes reported by the front-end.
-                            if (factGenRun >= MAX_FACTGEN_RUNS)
-                                System.err.println("Too many fact generation restarts, classes still not resolved: " + Arrays.toString(extraClasses))
-                            else {
-                                redo = true
-                                factGenRun += 1
-                                println("Restarting fact generation (run #${factGenRun}) with " + extraClasses.length + " more classes: " + Arrays.toString(extraClasses))
-                                DoopAnalysis.alsoResolve(params, Arrays.asList(extraClasses))
-                                missingClasses.delete()
-                            }
-                        }
-                    }
+//                    if (missingClasses != null && missingClasses.exists()) {
+//                        String[] extraClasses = missingClasses.readLines() as String[]
+//                        if (extraClasses.length > 0) {
+//                            // Retry with classes reported by the front-end.
+//                            if (factGenRun >= MAX_FACTGEN_RUNS)
+//                                System.err.println("Too many fact generation restarts, classes still not resolved: " + Arrays.toString(extraClasses))
+//                            else {
+//                                redo = true
+//                                factGenRun += 1
+//                                println("Restarting fact generation (run #${factGenRun}) with " + extraClasses.length + " more classes: " + Arrays.toString(extraClasses))
+//                                DoopAnalysis.alsoResolve(params, Arrays.asList(extraClasses))
+//                                missingClasses.delete()
+//                            }
+//                        }
+//                    }
                 } catch (Throwable t) {
                     String msg = "Soot fact generation error (${t.class.name}): ${t.message}"
                     log.debug msg
